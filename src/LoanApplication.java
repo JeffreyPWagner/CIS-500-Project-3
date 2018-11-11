@@ -18,7 +18,7 @@ public class LoanApplication {
 		 
 		 while (moreLoans) {
 			 System.out.println("Enter applicant name");
-			 name = scnr.nextLine();
+			 name = scnr.next();
 			 System.out.println("Enter the interest rate");
 			 interestRate = scnr.nextDouble();
 			 System.out.println("Enter length of the loan in years");
@@ -26,7 +26,7 @@ public class LoanApplication {
 			 System.out.println("Enter the amount of the loan");
 			 principle = scnr.nextDouble();
 			 System.out.println("Enter SI for simple interest or AL for amortized loan");
-			 type = scnr.nextLine();
+			 type = scnr.next();
 			 
 			 if (type.equalsIgnoreCase("SI")) {
 				 loan = new SimpleLoan(name, interestRate, length, principle);
@@ -36,12 +36,17 @@ public class LoanApplication {
 				 loan = new AmortizedLoan(name, interestRate, length, principle);
 			 }
 			 
+			 else {
+				 System.out.println("Invalid loan type, start again");
+				 continue;
+			 }
+			 
 			 summary = loan.process();
 			 
-			 PrintSpooler.getSpooler().printDocument(summary);
+			 PrintSpooler.getSpooler().printDocument(summary, type);
 			 
 			 System.out.println("Process another loan? (Y/N)");
-			 if (scnr.nextLine().equalsIgnoreCase("N")) {
+			 if (scnr.next().equalsIgnoreCase("N")) {
 				 moreLoans = false;
 			 }
 		 }

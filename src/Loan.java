@@ -1,3 +1,5 @@
+import java.text.NumberFormat;
+
 
 public abstract class Loan {
 
@@ -6,6 +8,8 @@ public abstract class Loan {
 	protected int length;
 	protected double principle;
 	protected double monthlyPayment;
+	
+	NumberFormat formatter = NumberFormat.getCurrencyInstance();
 	
 	public Loan (String name, double rate, int years, double amount) {
 		this.name = name;
@@ -22,7 +26,7 @@ public abstract class Loan {
 	abstract public void calcMonthlyPayment();
 	
 	public String makeSummary() {
-		return "name: " + name + "\ninterest rate: " + interestRate + "\nlength: " + length + "\namount: " + principle + "\npayment: " + monthlyPayment;
+		return "name: " + name + "\ninterest rate: " + String.format("%.2f%%",interestRate*100) + "\nlength: " + length + "\namount: " + formatter.format(principle) + "\npayment: " + formatter.format(monthlyPayment);
 	}
 	
 	public String toString() {
